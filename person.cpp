@@ -5,22 +5,22 @@
 using namespace std;
 
 // Person class implementation
-Person::Person(const std::string& uname, const std::string& mail, const std::string& pwd)
+orang::orang(const std::string& uname, const std::string& mail, const std::string& pwd)
     : username(uname), email(mail), password(pwd), loggedIn(false) {}
 
-string Person::getUsername() const {
+string orang::melihat_nama() const {
     return username;
 }
 
-string Person::getEmail() const {
+string orang::email_akun() const {
     return email;
 }
 
-bool Person::isLoggedIn() const {
+bool orang::sudah_login() const {
     return loggedIn;
 }
 
-bool Person::login(const std::string& inputPassword) {
+bool orang::login(const std::string& inputPassword) {
     if (inputPassword == password) {
         loggedIn = true;
         cout << "Login berhasil! Selamat datang " << username << "!\n";
@@ -31,17 +31,17 @@ bool Person::login(const std::string& inputPassword) {
     }
 }
 
-void Person::logout() {
+void orang::logout() {
     loggedIn = false;
     cout << "Logout berhasil. Sampai jumpa " << username << "!\n";
 }
 
 // Pembeli class implementation
-Pembeli::Pembeli(const std::string& uname, const std::string& mail, const std::string& pwd)
-    : Person(uname, mail, pwd) {}
+pembeli::pembeli(const std::string& uname, const std::string& mail, const std::string& pwd)
+    : orang(uname, mail, pwd) {}
 
-void Pembeli::mencariProduk() {
-    if (!isLoggedIn()) {
+void pembeli::mencari_produk() {
+    if (!sudah_login()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -57,8 +57,8 @@ void Pembeli::mencariProduk() {
     cout << "3. Charger " << keyword << " - Rp 150.000\n";
 }
 
-void Pembeli::melihatDetailProduk() {
-    if (!isLoggedIn()) {
+void pembeli::detail_produk() {
+    if (!sudah_login()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -95,8 +95,8 @@ void Pembeli::melihatDetailProduk() {
     }
 }
 
-void Pembeli::menambahkanKeKeranjang() {
-    if (!isLoggedIn()) {
+void pembeli::masukkan_ke_keranjang() {
+    if (!sudah_login()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -109,8 +109,8 @@ void Pembeli::menambahkanKeKeranjang() {
     cout << "Produk '" << produk << "' berhasil ditambahkan ke keranjang!\n";
 }
 
-void Pembeli::melihatKeranjang() {
-    if (!isLoggedIn()) {
+void pembeli::isi_keranjang() {
+    if (!sudah_login()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -125,8 +125,8 @@ void Pembeli::melihatKeranjang() {
     }
 }
 
-void Pembeli::checkout() {
-    if (!isLoggedIn()) {
+void pembeli::checkout() {
+    if (!sudah_login()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -147,8 +147,8 @@ void Pembeli::checkout() {
     keranjang.clear();
 }
 
-void Pembeli::melakukanPembayaran() {
-    if (!isLoggedIn()) {
+void pembeli::membayaran() {
+    if (!sudah_login()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -165,8 +165,8 @@ void Pembeli::melakukanPembayaran() {
     cout << "Pembayaran berhasil!\n";
 }
 
-void Pembeli::melihatStatusPesanan() {
-    if (!isLoggedIn()) {
+void pembeli::status_pesanan() {
+    if (!sudah_login()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -181,8 +181,8 @@ void Pembeli::melihatStatusPesanan() {
     }
 }
 
-void Pembeli::menerimaBarang() {
-    if (!isLoggedIn()) {
+void pembeli::terima_barang() {
+    if (!sudah_login()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -190,7 +190,7 @@ void Pembeli::menerimaBarang() {
     cout << "Barang telah diterima. Terima kasih!\n";
 }
 
-void Pembeli::displayInfo() const {
+void pembeli::info() const {
     cout << "=== INFO PEMBELI ===\n";
     cout << "Username: " << username << "\n";
     cout << "Email: " << email << "\n";
@@ -199,7 +199,7 @@ void Pembeli::displayInfo() const {
     cout << "Total pesanan: " << riwayatPesanan.size() << "\n";
 }
 
-void Pembeli::showMenu() {
+void pembeli::menu() {
     int pilihan;
     do {
         cout << "\n=== MENU PEMBELI ===\n";
@@ -217,27 +217,27 @@ void Pembeli::showMenu() {
         cin >> pilihan;
         
         switch(pilihan) {
-            case 1: mencariProduk(); break;
-            case 2: melihatDetailProduk(); break;
-            case 3: menambahkanKeKeranjang(); break;
-            case 4: melihatKeranjang(); break;
+            case 1: mencari_produk(); break;
+            case 2: detail_produk(); break;
+            case 3: masukkan_ke_keranjang(); break;
+            case 4: isi_keranjang(); break;
             case 5: checkout(); break;
-            case 6: melakukanPembayaran(); break;
-            case 7: melihatStatusPesanan(); break;
-            case 8: menerimaBarang(); break;
-            case 9: displayInfo(); break;
+            case 6: membayaran(); break;
+            case 7: status_pesanan(); break;
+            case 8: terima_barang(); break;
+            case 9: info(); break;
             case 0: logout(); break;
             default: cout << "Pilihan tidak valid!\n";
         }
-    } while (pilihan != 0 && isLoggedIn());
+    } while (pilihan != 0 && sudah_login());
 }
 
 // Penjual class implementation
 Penjual::Penjual(const std::string& uname, const std::string& mail, const std::string& pwd, const std::string& toko)
-    : Person(uname, mail, pwd), namaToko(toko) {}
+    : orang(uname, mail, pwd), namaToko(toko) {}
 
-void Penjual::mengunggahProduk() {
-    if (!isLoggedIn()) {
+void Penjual::menambahkan_produk() {
+    if (!sudah_login()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -250,8 +250,8 @@ void Penjual::mengunggahProduk() {
     cout << "Produk '" << produk << "' berhasil diunggah!\n";
 }
 
-void Penjual::mengaturStokProduk() {
-    if (!isLoggedIn()) {
+void Penjual::stok_produk() {
+    if (!sudah_login()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -277,8 +277,8 @@ void Penjual::mengaturStokProduk() {
     }
 }
 
-void Penjual::melihatKatalog() {
-    if (!isLoggedIn()) {
+void Penjual::katalog() {
+    if (!sudah_login()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -293,8 +293,8 @@ void Penjual::melihatKatalog() {
     }
 }
 
-void Penjual::menerimaPesanan() {
-    if (!isLoggedIn()) {
+void Penjual::menerima_pesanan() {
+    if (!sudah_login()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -304,8 +304,8 @@ void Penjual::menerimaPesanan() {
     cout << "Pesanan diterima!\n";
 }
 
-void Penjual::memprosesPesanan() {
-    if (!isLoggedIn()) {
+void Penjual::memproses_pesanan() {
+    if (!sudah_login()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -314,8 +314,8 @@ void Penjual::memprosesPesanan() {
     cout << "Pesanan sedang diproses!\n";
 }
 
-void Penjual::mengaturPengiriman() {
-    if (!isLoggedIn()) {
+void Penjual::pengiriman() {
+    if (!sudah_login()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -332,8 +332,8 @@ void Penjual::mengaturPengiriman() {
     cout << "Pengiriman berhasil diatur!\n";
 }
 
-void Penjual::melihatDaftarPesanan() {
-    if (!isLoggedIn()) {
+void Penjual::daftar_pesanan() {
+    if (!sudah_login()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -348,8 +348,8 @@ void Penjual::melihatDaftarPesanan() {
     }
 }
 
-void Penjual::mengonfirmasiPengiriman() {
-    if (!isLoggedIn()) {
+void Penjual::konfirmasi_pengiriman() {
+    if (!sudah_login()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -358,7 +358,7 @@ void Penjual::mengonfirmasiPengiriman() {
     cout << "Pengiriman telah dikonfirmasi!\n";
 }
 
-void Penjual::displayInfo() const {
+void Penjual::info() const {
     cout << "=== INFO PENJUAL ===\n";
     cout << "Username: " << username << "\n";
     cout << "Email: " << email << "\n";
@@ -368,16 +368,16 @@ void Penjual::displayInfo() const {
     cout << "Total pesanan: " << daftarPesanan.size() << "\n";
 }
 
-void Penjual::showMenu() {
+void Penjual::menu() {
     int pilihan;
     do {
         cout << "\n=== MENU PENJUAL ===\n";
-        cout << "1. Unggah Produk\n";
-        cout << "2. Atur Stok Produk\n";
+        cout << "1. Menambahkan Produk\n";
+        cout << "2. Stok Produk\n";
         cout << "3. Lihat Katalog\n";
         cout << "4. Terima Pesanan\n";
         cout << "5. Proses Pesanan\n";
-        cout << "6. Atur Pengiriman\n";
+        cout << "6. Pengiriman\n";
         cout << "7. Lihat Daftar Pesanan\n";
         cout << "8. Konfirmasi Pengiriman\n";
         cout << "9. Lihat Info Akun\n";
@@ -386,17 +386,17 @@ void Penjual::showMenu() {
         cin >> pilihan;
         
         switch(pilihan) {
-            case 1: mengunggahProduk(); break;
-            case 2: mengaturStokProduk(); break;
-            case 3: melihatKatalog(); break;
-            case 4: menerimaPesanan(); break;
-            case 5: memprosesPesanan(); break;
-            case 6: mengaturPengiriman(); break;
-            case 7: melihatDaftarPesanan(); break;
-            case 8: mengonfirmasiPengiriman(); break;
-            case 9: displayInfo(); break;
+            case 1: menambahkan_produk(); break;
+            case 2: stok_produk(); break;
+            case 3: katalog(); break;
+            case 4: menerima_pesanan(); break;
+            case 5: memproses_pesanan(); break;
+            case 6: pengiriman(); break;
+            case 7: daftar_pesanan(); break;
+            case 8: konfirmasi_pengiriman(); break;
+            case 9: info(); break;
             case 0: logout(); break;
             default: cout << "Pilihan tidak valid!\n";
         }
-    } while (pilihan != 0 && isLoggedIn());
+    } while (pilihan != 0 && sudah_login());
 }

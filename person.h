@@ -5,7 +5,7 @@
 #include <iostream>
 #include <vector>
 
-class Person {
+class orang {
 protected:
     std::string username;
     std::string email;
@@ -13,41 +13,41 @@ protected:
     bool loggedIn;
     
 public:
-    Person(const std::string& uname, const std::string& mail, const std::string& pwd);
-    virtual ~Person() = default;
+    orang(const std::string& uname, const std::string& mail, const std::string& pwd);
+    virtual ~orang() = default;
     
-    std::string getUsername() const;
-    std::string getEmail() const;
-    bool isLoggedIn() const;
+    std::string melihat_nama() const;
+    std::string email_akun() const;
+    bool sudah_login() const;
     bool login(const std::string& inputPassword);
     void logout();
-    virtual void displayInfo() const = 0;
-    virtual void showMenu() = 0;
+    virtual void info() const = 0;
+    virtual void menu() = 0;
 };
 
-class Pembeli : public Person {
+class pembeli : public orang {
 private:
     std::vector<std::string> keranjang;
     std::vector<std::string> riwayatPesanan;
     
 public:
-    Pembeli(const std::string& uname, const std::string& mail, const std::string& pwd);
+    pembeli(const std::string& uname, const std::string& mail, const std::string& pwd);
     
     // Use case methods
-    void mencariProduk();
-    void melihatDetailProduk();
-    void menambahkanKeKeranjang();
-    void melihatKeranjang();
+    void mencari_produk();
+    void detail_produk();
+    void masukkan_ke_keranjang();
+    void isi_keranjang();
     void checkout();
-    void melakukanPembayaran();
-    void melihatStatusPesanan();
-    void menerimaBarang();
+    void membayaran();
+    void status_pesanan();
+    void terima_barang();
     
-    void displayInfo() const override;
-    void showMenu() override;
+    void info() const override;
+    void menu() override;
 };
 
-class Penjual : public Person {
+class Penjual : public orang {
 private:
     std::string namaToko;
     std::vector<std::string> katalogProduk;
@@ -57,17 +57,29 @@ public:
     Penjual(const std::string& uname, const std::string& mail, const std::string& pwd, const std::string& toko);
     
     // Use case methods
-    void mengunggahProduk();
-    void mengaturStokProduk();
-    void melihatKatalog();
-    void menerimaPesanan();
-    void memprosesPesanan();
-    void mengaturPengiriman();
-    void melihatDaftarPesanan();
-    void mengonfirmasiPengiriman();
+    void menambahkan_produk();
+    void stok_produk();
+    void katalog();
+    void menerima_pesanan();
+    void memproses_pesanan();
+    void pengiriman();
+    void daftar_pesanan();
+    void konfirmasi_pengiriman();
     
-    void displayInfo() const override;
-    void showMenu() override;
+    void info() const override;
+    void menu() override;
 };
+
+// class produk : public orang {
+//     private:
+//         std::string namaProduk;
+//         double harga;
+//         int stok;
+//         std::string kategory;
+//     public:
+//         produk(const std::string& nama, double hrga, int stk, const std::string& ktrg);
+//         void info_produk() const;
+
+// };
 
 #endif

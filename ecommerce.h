@@ -7,7 +7,7 @@
 
 class ECommerceSystem {
 private:
-    std::vector<Pembeli*> daftarPembeli;
+    std::vector<pembeli*> daftarPembeli;
     std::vector<Penjual*> daftarPenjual;
     
 public:
@@ -17,7 +17,7 @@ public:
     void tampilkanMenuUtama();
     void daftarAkun();
     void loginAkun();
-    Pembeli* findPembeli(const std::string& username, const std::string& password);
+    pembeli* findPembeli(const std::string& username, const std::string& password);
     Penjual* findPenjual(const std::string& username, const std::string& password);
 };
 

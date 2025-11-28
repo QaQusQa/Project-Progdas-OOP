@@ -6,8 +6,8 @@ using namespace std;
 
 ECommerceSystem::ECommerceSystem() {
     // Data dummy untuk testing
-    daftarPembeli.push_back(new Pembeli("pembeli1", "pembeli1@email.com", "123"));
-    daftarPembeli.push_back(new Pembeli("john", "john@email.com", "123"));
+    daftarPembeli.push_back(new pembeli("pembeli1", "pembeli1@email.com", "123"));
+    daftarPembeli.push_back(new pembeli("john", "john@email.com", "123"));
     daftarPenjual.push_back(new Penjual("penjual1", "penjual1@email.com", "123", "Toko Elektronik"));
     daftarPenjual.push_back(new Penjual("toko_abc", "toko@abc.com", "123", "Toko ABC"));
     
@@ -41,7 +41,7 @@ void ECommerceSystem::tampilkanMenuUtama() {
 void ECommerceSystem::daftarAkun() {
     int tipeAkun;
     cout << "\n=== DAFTAR AKUN BARU ===\n";
-    cout << "1. Daftar sebagai Pembeli\n";
+    cout << "1. Daftar sebagai pembeli\n";
     cout << "2. Daftar sebagai Penjual\n";
     cout << "Pilihan: ";
     cin >> tipeAkun;
@@ -55,7 +55,7 @@ void ECommerceSystem::daftarAkun() {
     cin >> password;
     
     if (tipeAkun == 1) {
-        daftarPembeli.push_back(new Pembeli(username, email, password));
+        daftarPembeli.push_back(new pembeli(username, email, password));
         cout << "Akun pembeli berhasil dibuat! Silakan login.\n";
     } else if (tipeAkun == 2) {
         cout << "Nama Toko: ";
@@ -71,7 +71,7 @@ void ECommerceSystem::daftarAkun() {
 void ECommerceSystem::loginAkun() {
     int tipeAkun;
     cout << "\n=== LOGIN ===\n";
-    cout << "1. Login sebagai Pembeli\n";
+    cout << "1. Login sebagai pembeli\n";
     cout << "2. Login sebagai Penjual\n";
     cout << "Pilihan: ";
     cin >> tipeAkun;
@@ -83,10 +83,10 @@ void ECommerceSystem::loginAkun() {
     cin >> password;
     
     if (tipeAkun == 1) {
-        Pembeli* pembeli = findPembeli(username, password);
+        pembeli* pembeli = findPembeli(username, password);
         if (pembeli) {
             pembeli->login(password);
-            pembeli->showMenu();
+            pembeli->menu();
         } else {
             cout << "Username atau password salah!\n";
         }
@@ -94,7 +94,7 @@ void ECommerceSystem::loginAkun() {
         Penjual* penjual = findPenjual(username, password);
         if (penjual) {
             penjual->login(password);
-            penjual->showMenu();
+            penjual->menu();
         } else {
             cout << "Username atau password salah!\n";
         }
@@ -103,9 +103,9 @@ void ECommerceSystem::loginAkun() {
     }
 }
 
-Pembeli* ECommerceSystem::findPembeli(const std::string& username, const std::string& password) {
-    for (Pembeli* pembeli : daftarPembeli) {
-        if (pembeli->getUsername() == username) {
+pembeli* ECommerceSystem::findPembeli(const std::string& username, const std::string& password) {
+    for (pembeli* pembeli : daftarPembeli) {
+        if (pembeli->melihat_nama() == username) {
             // Check password nanti di method login
             return pembeli;
         }
@@ -115,7 +115,7 @@ Pembeli* ECommerceSystem::findPembeli(const std::string& username, const std::st
 
 Penjual* ECommerceSystem::findPenjual(const std::string& username, const std::string& password) {
     for (Penjual* penjual : daftarPenjual) {
-        if (penjual->getUsername() == username) {
+        if (penjual->melihat_nama() == username) {
             // Check password nanti di method login
             return penjual;
         }
