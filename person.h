@@ -4,70 +4,71 @@
 #include <string>
 #include <iostream>
 #include <vector>
+using namespace std;
 
 class Person {
 protected:
-    std::string username;
-    std::string email;
-    std::string password;
+    string username;
+    string email;
+    string password;
     bool loggedIn;
     
 public:
-    Person(const std::string& uname, const std::string& mail, const std::string& pwd);
+    Person(const string& uname, const string& mail, const string& pwd);
     virtual ~Person() = default;
     
-    std::string getUsername() const;
-    std::string getEmail() const;
-    bool isLoggedIn() const;
-    bool login(const std::string& inputPassword);
+    string cariUsername() const;
+    string cariEmail() const;
+    bool sudahLoggedIn() const;
+    bool login(const string& inputPassword);
     void logout();
-    virtual void displayInfo() const = 0;
-    virtual void showMenu() = 0;
+    virtual void tampilkanInfo() const = 0;
+    virtual void tampilkanMenu() = 0;
 };
 
 class Pembeli : public Person {
 private:
-    std::vector<std::string> keranjang;
-    std::vector<std::string> riwayatPesanan;
+    vector<string> keranjang;
+    vector<string> riwayatPesanan;
     
 public:
-    Pembeli(const std::string& uname, const std::string& mail, const std::string& pwd);
+    Pembeli(const string& uname, const string& mail, const string& pwd);
     
     // Use case methods
-    void mencariProduk();
-    void melihatDetailProduk();
-    void menambahkanKeKeranjang();
-    void melihatKeranjang();
-    void checkout();
-    void melakukanPembayaran();
-    void melihatStatusPesanan();
-    void menerimaBarang();
+    void cariProduk();
+    void lihatDetailProduk();
+    void tambahKeKeranjang();
+    void lihatKeranjang();
+    void prosesCheckout();
+    void lakukanPembayaran();
+    void lihatStatusPesanan();
+    void terimaBarang();
     
-    void displayInfo() const override;
-    void showMenu() override;
+    void tampilkanInfo() const override;
+    void tampilkanMenu() override;
 };
 
 class Penjual : public Person {
 private:
-    std::string namaToko;
-    std::vector<std::string> katalogProduk;
-    std::vector<std::string> daftarPesanan;
+    string namaToko;
+    vector<string> katalogProduk;
+    vector<string> daftarPesanan;
     
 public:
-    Penjual(const std::string& uname, const std::string& mail, const std::string& pwd, const std::string& toko);
+    Penjual(const string& uname, const string& mail, const string& pwd, const string& toko);
     
     // Use case methods
-    void mengunggahProduk();
-    void mengaturStokProduk();
-    void melihatKatalog();
-    void menerimaPesanan();
-    void memprosesPesanan();
-    void mengaturPengiriman();
-    void melihatDaftarPesanan();
-    void mengonfirmasiPengiriman();
+    void tambahProduk();
+    void aturStokProduk();
+    void lihatKatalog();
+    void terimaPesanan();
+    void prosesPesanan();
+    void aturPengiriman();
+    void lihatDaftarPesanan();
+    void konfirmasiPengiriman();
     
-    void displayInfo() const override;
-    void showMenu() override;
+    void tampilkanInfo() const override;
+    void tampilkanMenu() override;
 };
 
 #endif
