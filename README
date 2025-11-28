@@ -1,0 +1,10 @@
+// Cara kompilasi semua file langsung: 
+//g++ -std=c++11 -o ecommerce_system main.cpp person.cpp ecommerce.cpp
+
+//Cara kompilasi file satu-satu: 
+//g++ -std=c++11 -c main.cpp
+//g++ -std=c++11 -c person.cpp
+//g++ -std=c++11 -c ecommerce.cpp
+
+//Cara menjalankan program:
+//./ecommerce_system

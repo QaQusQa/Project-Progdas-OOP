@@ -1,0 +1,68 @@
+@startuml
+title "Use Case Diagram - Interaksi Pembeli & Penjual di E-Commerce"
+
+left to right direction
+skinparam BackgroundColor white
+skinparam usecase {
+    BackgroundColor #F3F3F3
+    BorderColor #333
+    ArrowColor #333
+}
+
+actor "Pembeli" as Buyer
+actor "Penjual" as Seller
+
+rectangle "E-Commerce System" {
+
+    ' ==== Pembeli ====
+    usecase "Daftar / Login" as UC1
+    usecase "Mencari Produk" as UC2
+    usecase "Melihat Detail Produk" as UC3
+    usecase "Menambahkan ke Keranjang" as UC4
+    usecase "Checkout" as UC5
+    usecase "Melakukan Pembayaran" as UC6
+    usecase "Menerima Barang" as UC7
+
+    ' ==== Penjual ====
+    usecase "Daftar / Login Penjual" as UC8
+    usecase "Mengunggah Produk" as UC9
+    usecase "Mengatur Stok Produk" as UC10
+    usecase "Menerima Pesanan" as UC11
+    usecase "Memproses Pesanan" as UC12
+    usecase "Mengatur Pengiriman" as UC13
+    usecase "Mengonfirmasi Pengiriman" as UC14
+
+    ' ==== Integrasi Pembeli ↔ Penjual ====
+    usecase "Pesanan Dibuat" as INT1
+    usecase "Pembayaran Terkonfirmasi" as INT2
+    usecase "Status Pengiriman" as INT3
+}
+
+' ==== Relasi Pembeli ====
+Buyer --> UC1
+Buyer --> UC2
+Buyer --> UC3
+Buyer --> UC4
+Buyer --> UC5
+Buyer --> UC6
+Buyer --> UC7
+
+' ==== Relasi Penjual ====
+Seller --> UC8
+Seller --> UC9
+Seller --> UC10
+Seller --> UC11
+Seller --> UC12
+Seller --> UC13
+Seller --> UC14
+
+' ==== Integrasi =====
+UC5 --> INT1     : Checkout → Pesanan Dibuat
+UC6 --> INT2     : Pembayaran → Notifikasi Penjual
+UC13 --> INT3    : Pengiriman → Info ke Pembeli
+
+INT1 --> UC11    : Notifikasi pesanan masuk
+INT2 --> UC12    : Penjual memulai proses
+INT3 --> Buyer   : Pembeli menerima update status
+
+@enduml

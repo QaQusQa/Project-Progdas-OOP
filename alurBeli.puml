@@ -1,30 +1,38 @@
-@startuml beli 
-title "Alur Beli Barang di E-Commerce"
-skinparam DefaultTextAlignment center
+@startuml
+title "Use Case Diagram - Pembelian Barang di E-Commerce"
+
+left to right direction
 skinparam BackgroundColor white
+skinparam usecase {
+    BackgroundColor #F5F5F5
+    BorderColor #333333
+    ArrowColor #333333
+}
 
-actor Pembeli
+actor "Pembeli" as User
 
-start
-:Masuk ke website jual beli;
-if (Terdaftar?) then (Yes)
-    :Login;
-else (No)
-    :Daftar;
-    :Login;
-endif
-:Pilih kategori produk;
-:Cari produk;
-:Lihat detail produk;
-:Masukkan ke keranjang;
-:Proses checkout;
-:Pilih metode pembayaran;
-:Konfirmasi pembayaran;
-:Tunggu pengiriman;
-:Terima barang;
-stop
+rectangle "E-Commerce System" {
+    usecase "Masuk ke Website" as UC1
+    usecase "Daftar" as UC2
+    usecase "Login" as UC3
+    usecase "Pilih Produk" as UC4
+    usecase "Lihat Detail Produk" as UC5
+    usecase "Masukkan ke Keranjang" as UC6
+    usecase "Checkout" as UC7
+    usecase "Pilih Metode Pembayaran" as UC8
+    usecase "Konfirmasi Pembayaran" as UC9
+    usecase "Terima Barang" as UC10
+}
 
-Pembeli --> [Masuk ke website jual beli]
-[Terima barang] --> Pembeli
+User --> UC1
+User --> UC2
+User --> UC3
+User --> UC4
+User --> UC5
+User --> UC6
+User --> UC7
+User --> UC8
+User --> UC9
+User --> UC10
 
 @enduml
