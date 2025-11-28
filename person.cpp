@@ -46,6 +46,57 @@ void pembeli::mencari_produk() {
         return;
     }
     
+    int kategori;
+    cout << "=== KATEGORI PRODUK ===\n";
+    cout << "Masukkan kategori yang dipilih? ";
+    
+    cout << "1. Elektronik" << endl;
+    cout << "2. Komputer dan Aksesoris" << endl;
+    cout << "3. Fashion" << endl;
+    cout << "4. Kesehatan" << endl;
+    cout << "5. Hobi dan Koleksi" << endl;
+    cout << "6. Perlengkapan Rumah Tangga" << endl;
+    cout << "7. Perawatan dan Kosmetik" << endl;
+    cout << "8. Olahraga" << endl;
+    cout << "9. Makanan dan Minuman" << endl;
+    cout << "10. Buku dan Alat Tulis" << endl;
+    cin >> kategori;
+    switch (kategori)
+    {
+    case 1:
+        
+        break;
+    case 2: 
+        
+        break;
+    case 3: 
+        
+        break;
+    case 4: 
+        
+        break;
+    case 5: 
+        
+        break;
+    case 6: 
+        
+        break;
+    case 7: 
+        
+        break;
+    case 8: 
+        
+        break;
+    case 9: 
+        
+        break;
+    default:    
+        cout << "Pilihan tidak valid!\n";
+    }
+
+
+
+    cin >> kategori;
     string keyword;
     cout << "Masukkan kata kunci produk: ";
     cin.ignore();

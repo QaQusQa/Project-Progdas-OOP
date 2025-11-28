@@ -32,7 +32,9 @@ void ECommerceSystem::tampilkanMenuUtama() {
         switch(pilihan) {
             case 1: daftarAkun(); break;
             case 2: loginAkun(); break;
-            case 3: cout << "Terima kasih telah menggunakan layanan kami!\n"; break;
+            case 3: cout << "Terima kasih telah menggunakan layanan kami!\n"; 
+                cout << "Sampai Jumpa lagi!!!!! \n Dari Rama dan Qaqa"  << endl;
+                break;
             default: cout << "Pilihan tidak valid!\n";
         }
     } while (pilihan != 3);
@@ -65,7 +67,7 @@ void ECommerceSystem::daftarAkun() {
         cout << "Akun penjual berhasil dibuat! Silakan login.\n";
     } else {
         cout << "Pilihan tidak valid!\n";
-    }
+    } 
 }
 
 void ECommerceSystem::loginAkun() {
@@ -86,7 +88,7 @@ void ECommerceSystem::loginAkun() {
         pembeli* pembeli = findPembeli(username, password);
         if (pembeli) {
             pembeli->login(password);
-            pembeli->menu();
+            pembeli->tampilkanMenu();
         } else {
             cout << "Username atau password salah!\n";
         }
@@ -94,7 +96,7 @@ void ECommerceSystem::loginAkun() {
         Penjual* penjual = findPenjual(username, password);
         if (penjual) {
             penjual->login(password);
-            penjual->menu();
+            penjual->tampilkanMenu();
         } else {
             cout << "Username atau password salah!\n";
         }
@@ -103,9 +105,9 @@ void ECommerceSystem::loginAkun() {
     }
 }
 
-pembeli* ECommerceSystem::findPembeli(const std::string& username, const std::string& password) {
-    for (pembeli* pembeli : daftarPembeli) {
-        if (pembeli->melihat_nama() == username) {
+Pembeli* ECommerceSystem::findPembeli(const string& username, const string& password) {
+    for (Pembeli* pembeli : daftarPembeli) {
+        if (pembeli->cariUsername() == username) {
             // Check password nanti di method login
             return pembeli;
         }
@@ -113,9 +115,9 @@ pembeli* ECommerceSystem::findPembeli(const std::string& username, const std::st
     return nullptr;
 }
 
-Penjual* ECommerceSystem::findPenjual(const std::string& username, const std::string& password) {
+Penjual* ECommerceSystem::findPenjual(const string& username, const string& password) {
     for (Penjual* penjual : daftarPenjual) {
-        if (penjual->melihat_nama() == username) {
+        if (penjual->cariUsername() == username) {
             // Check password nanti di method login
             return penjual;
         }

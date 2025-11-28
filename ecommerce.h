@@ -4,11 +4,11 @@
 #include "person.h"
 #include <vector>
 #include <iostream>
-
+using namespace std;
 class ECommerceSystem {
 private:
-    std::vector<pembeli*> daftarPembeli;
-    std::vector<Penjual*> daftarPenjual;
+    vector<Pembeli*> daftarPembeli;
+    vector<Penjual*> daftarPenjual;
     
 public:
     ECommerceSystem();
@@ -17,8 +17,8 @@ public:
     void tampilkanMenuUtama();
     void daftarAkun();
     void loginAkun();
-    pembeli* findPembeli(const std::string& username, const std::string& password);
-    Penjual* findPenjual(const std::string& username, const std::string& password);
+    Pembeli* findPembeli(const string& username, const string& password);
+    Penjual* findPenjual(const string& username, const string& password);
 };
 
 #endif

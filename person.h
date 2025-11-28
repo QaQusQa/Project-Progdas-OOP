@@ -4,12 +4,13 @@
 #include <string>
 #include <iostream>
 #include <vector>
+using namespace std;
 
 class orang {
 protected:
-    std::string username;
-    std::string email;
-    std::string password;
+    string username;
+    string email;
+    string password;
     bool loggedIn;
     
 public:
@@ -27,8 +28,8 @@ public:
 
 class pembeli : public orang {
 private:
-    std::vector<std::string> keranjang;
-    std::vector<std::string> riwayatPesanan;
+    vector<string> keranjang;
+    vector<string> riwayatPesanan;
     
 public:
     pembeli(const std::string& uname, const std::string& mail, const std::string& pwd);
@@ -49,12 +50,12 @@ public:
 
 class Penjual : public orang {
 private:
-    std::string namaToko;
-    std::vector<std::string> katalogProduk;
-    std::vector<std::string> daftarPesanan;
+    string namaToko;
+    vector<string> katalogProduk;
+    vector<string> daftarPesanan;
     
 public:
-    Penjual(const std::string& uname, const std::string& mail, const std::string& pwd, const std::string& toko);
+    Penjual(const string& uname, const string& mail, const string& pwd, const string& toko);
     
     // Use case methods
     void menambahkan_produk();
