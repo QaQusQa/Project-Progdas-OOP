@@ -1,0 +1,10 @@
+@startuml name
+class Bentuk {
+    +warna : String
+}
+class Lingkaran {
+    +jari_jari : double
+}
+
+Bentuk <|-- Lingkaran
+@enduml

@@ -1,0 +1,30 @@
+@startuml beli 
+title "Alur Beli Barang di E-Commerce"
+skinparam DefaultTextAlignment center
+skinparam BackgroundColor white
+
+actor Pembeli
+
+start
+:Masuk ke website jual beli;
+if (Terdaftar?) then (Yes)
+    :Login;
+else (No)
+    :Daftar;
+    :Login;
+endif
+:Pilih kategori produk;
+:Cari produk;
+:Lihat detail produk;
+:Masukkan ke keranjang;
+:Proses checkout;
+:Pilih metode pembayaran;
+:Konfirmasi pembayaran;
+:Tunggu pengiriman;
+:Terima barang;
+stop
+
+Pembeli --> [Masuk ke website jual beli]
+[Terima barang] --> Pembeli
+
+@enduml
