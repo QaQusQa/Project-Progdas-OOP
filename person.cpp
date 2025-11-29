@@ -1,26 +1,29 @@
 #include "person.h"
+#include "produk.h"
+#include "produk.cpp"
 #include <iostream>
 #include <limits>
+#include <vector>
 
 using namespace std;
 
 // Person class implementation
-orang::orang(const std::string& uname, const std::string& mail, const std::string& pwd)
+Person::Person(const string& uname, const string& mail, const string& pwd)
     : username(uname), email(mail), password(pwd), loggedIn(false) {}
 
-string orang::melihat_nama() const {
+string Person::cariUsername() const {
     return username;
 }
 
-string orang::email_akun() const {
+string Person::cariEmail() const {
     return email;
 }
 
-bool orang::sudah_login() const {
+bool Person::sudahLoggedIn() const {
     return loggedIn;
 }
 
-bool orang::login(const std::string& inputPassword) {
+bool Person::login(const string& inputPassword) {
     if (inputPassword == password) {
         loggedIn = true;
         cout << "Login berhasil! Selamat datang " << username << "!\n";
@@ -31,17 +34,17 @@ bool orang::login(const std::string& inputPassword) {
     }
 }
 
-void orang::logout() {
+void Person::logout() {
     loggedIn = false;
     cout << "Logout berhasil. Sampai jumpa " << username << "!\n";
 }
 
 // Pembeli class implementation
-pembeli::pembeli(const std::string& uname, const std::string& mail, const std::string& pwd)
-    : orang(uname, mail, pwd) {}
+Pembeli::Pembeli(const string& uname, const string& mail, const string& pwd)
+    : Person(uname, mail, pwd) {}
 
-void pembeli::mencari_produk() {
-    if (!sudah_login()) {
+void Pembeli::cariProduk() {
+    if (!sudahLoggedIn()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -51,15 +54,9 @@ void pembeli::mencari_produk() {
     cout << "Masukkan kategori yang dipilih? ";
     
     cout << "1. Elektronik" << endl;
-    cout << "2. Komputer dan Aksesoris" << endl;
+    cout << "2. Kebutuhan Pokok" << endl;
     cout << "3. Fashion" << endl;
-    cout << "4. Kesehatan" << endl;
-    cout << "5. Hobi dan Koleksi" << endl;
-    cout << "6. Perlengkapan Rumah Tangga" << endl;
-    cout << "7. Perawatan dan Kosmetik" << endl;
-    cout << "8. Olahraga" << endl;
-    cout << "9. Makanan dan Minuman" << endl;
-    cout << "10. Buku dan Alat Tulis" << endl;
+
     cin >> kategori;
     switch (kategori)
     {
@@ -72,96 +69,106 @@ void pembeli::mencari_produk() {
     case 3: 
         
         break;
-    case 4: 
-        
-        break;
-    case 5: 
-        
-        break;
-    case 6: 
-        
-        break;
-    case 7: 
-        
-        break;
-    case 8: 
-        
-        break;
-    case 9: 
-        
-        break;
     default:    
         cout << "Pilihan tidak valid!\n";
     }
 
-
-
-    cin >> kategori;
-    string keyword;
-    cout << "Masukkan kata kunci produk: ";
-    cin.ignore();
-    getline(cin, keyword);
-    cout << "Mencari produk: " << keyword << "\n";
-    cout << "Hasil pencarian:\n";
-    cout << "1. Smartphone " << keyword << " - Rp 5.000.000\n";
-    cout << "2. Case " << keyword << " - Rp 100.000\n";
-    cout << "3. Charger " << keyword << " - Rp 150.000\n";
+    for (int i = 0; i < Person::katalogProduk.size() ; i++){
+        if (kategori == 1 and katalogProduk[i][3] == "Eletktronik"){
+            cout << 1 << ". " << katalogProduk[i][0] << endl;
+            cout << 2 << ". " << katalogProduk[i][1] << endl;
+            cout << 3 << ". " << katalogProduk[i][2] << endl;
+            cout << 4 << ". " << katalogProduk[i][3] << endl;
+        }
+        if (kategori == 2 and katalogProduk[i][3] == "Kebutuhan Pokok"){
+            cout << 1 << ". " << katalogProduk[i][0] << endl;
+            cout << 2 << ". " << katalogProduk[i][1] << endl;
+            cout << 3 << ". " << katalogProduk[i][2] << endl;
+            cout << 4 << ". " << katalogProduk[i][3] << endl;
+        }
+        if (kategori == 3 and katalogProduk[i][3] == "Fashion"){
+            cout << 1 << ". " << katalogProduk[i][0] << endl;
+            cout << 2 << ". " << katalogProduk[i][1] << endl;
+            cout << 3 << ". " << katalogProduk[i][2] << endl;
+            cout << 4 << ". " << katalogProduk[i][3] << endl;
+        }
+    }
+    // cin >> kategori;
+    // string keyword;
+    // cout << "Masukkan kata kunci produk: ";
+    // cin.ignore();
+    // getline(cin, keyword);
+    // cout << "Mencari produk: " << keyword << "\n";
+    // cout << "Hasil pencarian:\n";
+    // cout << "1. Smartphone " << keyword << " - Rp 5.000.000\n";
+    // cout << "2. Case " << keyword << " - Rp 100.000\n";
+    // cout << "3. Charger " << keyword << " - Rp 150.000\n";
 }
 
-void pembeli::detail_produk() {
-    if (!sudah_login()) {
+// void Pembeli::lihatDetailProduk() {
+//     if (!sudahLoggedIn()) {
+//         cout << "Silakan login terlebih dahulu!\n";
+//         return;
+//     }
+    
+//     int pilihan;
+//     cout << "Pilih produk untuk dilihat detail:\n";
+//     cout << "1. Smartphone Samsung S23\n";
+//     cout << "2. Case HP Premium\n";
+//     cout << "3. Charger Fast Charging\n";
+//     cout << "Pilihan: ";
+//     cin >> pilihan;
+    
+//     switch(pilihan) {
+//         case 1:
+//             cout << "Detail Smartphone Samsung S23:\n";
+//             cout << "Harga: Rp 5.000.000\n";
+//             cout << "Stok: 10\n";
+//             cout << "Deskripsi: Smartphone flagship dengan kamera 108MP\n";
+//             break;
+//         case 2:
+//             cout << "Detail Case HP Premium:\n";
+//             cout << "Harga: Rp 100.000\n";
+//             cout << "Stok: 50\n";
+//             cout << "Deskripsi: Case anti gores dengan bahan premium\n";
+//             break;
+//         case 3:
+//             cout << "Detail Charger Fast Charging:\n";
+//             cout << "Harga: Rp 150.000\n";
+//             cout << "Stok: 30\n";
+//             cout << "Deskripsi: Charger 25W dengan fast charging technology\n";
+//             break;
+//         default:
+//             cout << "Pilihan tidak valid!\n";
+//     }
+// }
+
+void Pembeli::tambahKeKeranjang() {
+    if (!sudahLoggedIn()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
-    
-    int pilihan;
-    cout << "Pilih produk untuk dilihat detail:\n";
-    cout << "1. Smartphone Samsung S23\n";
-    cout << "2. Case HP Premium\n";
-    cout << "3. Charger Fast Charging\n";
-    cout << "Pilihan: ";
-    cin >> pilihan;
-    
-    switch(pilihan) {
-        case 1:
-            cout << "Detail Smartphone Samsung S23:\n";
-            cout << "Harga: Rp 5.000.000\n";
-            cout << "Stok: 10\n";
-            cout << "Deskripsi: Smartphone flagship dengan kamera 108MP\n";
-            break;
-        case 2:
-            cout << "Detail Case HP Premium:\n";
-            cout << "Harga: Rp 100.000\n";
-            cout << "Stok: 50\n";
-            cout << "Deskripsi: Case anti gores dengan bahan premium\n";
-            break;
-        case 3:
-            cout << "Detail Charger Fast Charging:\n";
-            cout << "Harga: Rp 150.000\n";
-            cout << "Stok: 30\n";
-            cout << "Deskripsi: Charger 25W dengan fast charging technology\n";
-            break;
-        default:
-            cout << "Pilihan tidak valid!\n";
-    }
-}
 
-void pembeli::masukkan_ke_keranjang() {
-    if (!sudah_login()) {
-        cout << "Silakan login terlebih dahulu!\n";
-        return;
-    }
-    
     string produk;
+    do {
     cout << "Masukkan nama produk yang ingin ditambahkan: ";
     cin.ignore();
     getline(cin, produk);
-    keranjang.push_back(produk);
-    cout << "Produk '" << produk << "' berhasil ditambahkan ke keranjang!\n";
+    for (int i = 0; i < katalogProduk.size() ; i++){
+        if (produk == katalogProduk[i][0]){
+            keranjang.push_back(produk);
+            cout << "Produk '" << produk << "' berhasil ditambahkan ke keranjang!\n";
+        }
+        else{
+            cout<<"produk tidak terdapat pada toko"<< endl;
+        }
+    }
+    cout << "apakah ingin belanja lagi (jika tidak ketik 'n')? " << endl;
+    } while (produk != "n");
 }
 
-void pembeli::isi_keranjang() {
-    if (!sudah_login()) {
+void Pembeli::lihatKeranjang() {
+    if (!sudahLoggedIn()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -176,8 +183,8 @@ void pembeli::isi_keranjang() {
     }
 }
 
-void pembeli::checkout() {
-    if (!sudah_login()) {
+void Pembeli::prosesCheckout() {
+    if (!sudahLoggedIn()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -189,8 +196,17 @@ void pembeli::checkout() {
     
     cout << "Checkout berhasil!\n";
     cout << "Total item: " << keranjang.size() << "\n";
-    cout << "Total harga: Rp " << keranjang.size() * 100000 << "\n";
-    
+    cout << "Total harga: Rp ";
+    int harga_bayar = 0; 
+
+    for (int i = 0; i < keranjang.size() ; i++){
+        for (int j = 0 ; j < katalogProduk.size() ; j++){
+            if (keranjang[i] == katalogProduk[j][0]){
+                int katalogProduk[j][1];
+                harga_bayar += katalogProduk[j][1];
+            }
+        }
+    }
     // Pindahkan ke riwayat pesanan
     for (const auto& item : keranjang) {
         riwayatPesanan.push_back(item);
@@ -198,8 +214,8 @@ void pembeli::checkout() {
     keranjang.clear();
 }
 
-void pembeli::membayaran() {
-    if (!sudah_login()) {
+void Pembeli::lakukanPembayaran() {
+    if (!sudahLoggedIn()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -216,8 +232,8 @@ void pembeli::membayaran() {
     cout << "Pembayaran berhasil!\n";
 }
 
-void pembeli::status_pesanan() {
-    if (!sudah_login()) {
+void Pembeli::lihatStatusPesanan() {
+    if (!sudahLoggedIn()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -232,8 +248,8 @@ void pembeli::status_pesanan() {
     }
 }
 
-void pembeli::terima_barang() {
-    if (!sudah_login()) {
+void Pembeli::terimaBarang() {
+    if (!sudahLoggedIn()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -241,7 +257,7 @@ void pembeli::terima_barang() {
     cout << "Barang telah diterima. Terima kasih!\n";
 }
 
-void pembeli::info() const {
+void Pembeli::tampilkanInfo() const {
     cout << "=== INFO PEMBELI ===\n";
     cout << "Username: " << username << "\n";
     cout << "Email: " << email << "\n";
@@ -250,7 +266,7 @@ void pembeli::info() const {
     cout << "Total pesanan: " << riwayatPesanan.size() << "\n";
 }
 
-void pembeli::menu() {
+void Pembeli::tampilkanMenu() {
     int pilihan;
     do {
         cout << "\n=== MENU PEMBELI ===\n";
@@ -268,41 +284,48 @@ void pembeli::menu() {
         cin >> pilihan;
         
         switch(pilihan) {
-            case 1: mencari_produk(); break;
-            case 2: detail_produk(); break;
-            case 3: masukkan_ke_keranjang(); break;
-            case 4: isi_keranjang(); break;
-            case 5: checkout(); break;
-            case 6: membayaran(); break;
-            case 7: status_pesanan(); break;
-            case 8: terima_barang(); break;
-            case 9: info(); break;
+            case 1: cariProduk(); break;
+            case 2: lihatDetailProduk(); break;
+            case 3: tambahKeKeranjang(); break;
+            case 4: lihatKeranjang(); break;
+            case 5: prosesCheckout(); break;
+            case 6: lakukanPembayaran(); break;
+            case 7: lihatStatusPesanan(); break;
+            case 8: terimaBarang(); break;
+            case 9: tampilkanInfo(); break;
             case 0: logout(); break;
             default: cout << "Pilihan tidak valid!\n";
         }
-    } while (pilihan != 0 && sudah_login());
+    } while (pilihan != 0 && sudahLoggedIn());
 }
 
-// Penjual class implementation
-Penjual::Penjual(const std::string& uname, const std::string& mail, const std::string& pwd, const std::string& toko)
-    : orang(uname, mail, pwd), namaToko(toko) {}
+produk::produk(const std::string& nama, double hrga, int stk, const std::string& ktrg)
+    : Penjual(username, email, password, nama), namaProduk(nama), harga(hrga), stok(stk), kategory(ktrg) {}
 
-void Penjual::menambahkan_produk() {
-    if (!sudah_login()) {
+// Penjual class implementation
+Penjual::Penjual(const string& uname, const string& mail, const string& pwd, const string& toko)
+    : Person(uname, mail, pwd), namaToko(toko) {}
+
+vector <std::string> Penjual::tambahProduk() {
+    if (!sudahLoggedIn()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
-    
-    string produk;
-    cout << "Masukkan nama produk: ";
-    cin.ignore();
-    getline(cin, produk);
-    katalogProduk.push_back(produk);
-    cout << "Produk '" << produk << "' berhasil diunggah!\n";
+
+    vector <string> katalog = ktlg::katalogLokal;
+    katalogProduk.push_back(katalog);
+
+
+    // string produk;
+    // cout << "Masukkan nama produk: ";
+    // cin.ignore();
+    // getline(cin, produk);
+    // katalogProduk.push_back(produk);
+    // cout << "Produk '" << produk << "' berhasil diunggah!\n";
 }
 
-void Penjual::stok_produk() {
-    if (!sudah_login()) {
+void Penjual::aturStokProduk() {
+    if (!sudahLoggedIn()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -314,7 +337,7 @@ void Penjual::stok_produk() {
     }
     
     for (int i = 0; i < katalogProduk.size(); i++) {
-        cout << i+1 << ". " << katalogProduk[i] << "\n";
+        cout << i+1 << ". " << katalogProduk[i][0] << "\n";
     }
     
     int pilihan, stok;
@@ -324,12 +347,13 @@ void Penjual::stok_produk() {
     cin >> stok;
     
     if (pilihan > 0 && pilihan <= katalogProduk.size()) {
-        cout << "Stok " << katalogProduk[pilihan-1] << " diatur menjadi " << stok << "\n";
+        katalogProduk[pilihan-1][2] = stok;
+        cout << "Stok " << katalogProduk[pilihan-1][0] << " diatur menjadi " << stok << "\n";
     }
 }
 
-void Penjual::katalog() {
-    if (!sudah_login()) {
+void Penjual::lihatKatalog() {
+    if (!sudahLoggedIn()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -339,13 +363,16 @@ void Penjual::katalog() {
         cout << "Katalog kosong.\n";
     } else {
         for (int i = 0; i < katalogProduk.size(); i++) {
-            cout << i+1 << ". " << katalogProduk[i] << " - Stok: 10 - Harga: Rp 100.000\n";
+            cout << i+1 << ". " << katalogProduk[i][0];
+            cout << ", Kategori: "<< katalogProduk[i][3] << "\n";
+            cout << "Harga Barang: "<< ". " << katalogProduk[i][1] << "\n";
+            cout << "Stok yang tersedia: "<< ". " << katalogProduk[i][0] << "\n";
         }
     }
 }
 
-void Penjual::menerima_pesanan() {
-    if (!sudah_login()) {
+void Penjual::terimaPesanan() {
+    if (!sudahLoggedIn()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -355,8 +382,8 @@ void Penjual::menerima_pesanan() {
     cout << "Pesanan diterima!\n";
 }
 
-void Penjual::memproses_pesanan() {
-    if (!sudah_login()) {
+void Penjual::prosesPesanan() {
+    if (!sudahLoggedIn()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -365,8 +392,8 @@ void Penjual::memproses_pesanan() {
     cout << "Pesanan sedang diproses!\n";
 }
 
-void Penjual::pengiriman() {
-    if (!sudah_login()) {
+void Penjual::aturPengiriman() {
+    if (!sudahLoggedIn()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -383,8 +410,8 @@ void Penjual::pengiriman() {
     cout << "Pengiriman berhasil diatur!\n";
 }
 
-void Penjual::daftar_pesanan() {
-    if (!sudah_login()) {
+void Penjual::lihatDaftarPesanan() {
+    if (!sudahLoggedIn()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -399,8 +426,8 @@ void Penjual::daftar_pesanan() {
     }
 }
 
-void Penjual::konfirmasi_pengiriman() {
-    if (!sudah_login()) {
+void Penjual::konfirmasiPengiriman() {
+    if (!sudahLoggedIn()) {
         cout << "Silakan login terlebih dahulu!\n";
         return;
     }
@@ -409,7 +436,7 @@ void Penjual::konfirmasi_pengiriman() {
     cout << "Pengiriman telah dikonfirmasi!\n";
 }
 
-void Penjual::info() const {
+void Penjual::tampilkanInfo() const {
     cout << "=== INFO PENJUAL ===\n";
     cout << "Username: " << username << "\n";
     cout << "Email: " << email << "\n";
@@ -419,16 +446,16 @@ void Penjual::info() const {
     cout << "Total pesanan: " << daftarPesanan.size() << "\n";
 }
 
-void Penjual::menu() {
+void Penjual::tampilkanMenu() {
     int pilihan;
     do {
         cout << "\n=== MENU PENJUAL ===\n";
-        cout << "1. Menambahkan Produk\n";
-        cout << "2. Stok Produk\n";
+        cout << "1. Tambah Produk\n";
+        cout << "2. Atur Stok Produk\n";
         cout << "3. Lihat Katalog\n";
         cout << "4. Terima Pesanan\n";
         cout << "5. Proses Pesanan\n";
-        cout << "6. Pengiriman\n";
+        cout << "6. Atur Pengiriman\n";
         cout << "7. Lihat Daftar Pesanan\n";
         cout << "8. Konfirmasi Pengiriman\n";
         cout << "9. Lihat Info Akun\n";
@@ -437,17 +464,17 @@ void Penjual::menu() {
         cin >> pilihan;
         
         switch(pilihan) {
-            case 1: menambahkan_produk(); break;
-            case 2: stok_produk(); break;
-            case 3: katalog(); break;
-            case 4: menerima_pesanan(); break;
-            case 5: memproses_pesanan(); break;
-            case 6: pengiriman(); break;
-            case 7: daftar_pesanan(); break;
-            case 8: konfirmasi_pengiriman(); break;
-            case 9: info(); break;
+            case 1: tambahProduk(); break;
+            case 2: aturStokProduk(); break;
+            case 3: lihatKatalog(); break;
+            case 4: terimaPesanan(); break;
+            case 5: prosesPesanan(); break;
+            case 6: aturPengiriman(); break;
+            case 7: lihatDaftarPesanan(); break;
+            case 8: konfirmasiPengiriman(); break;
+            case 9: tampilkanInfo(); break;
             case 0: logout(); break;
             default: cout << "Pilihan tidak valid!\n";
         }
-    } while (pilihan != 0 && sudah_login());
+    } while (pilihan != 0 && sudahLoggedIn());
 }

@@ -6,7 +6,7 @@
 #include <iostream>
 #include <vector>
 
-class produk : public orang{
+class produk : public Penjual{
 private:
     std::string namaProduk;
     double harga;
@@ -16,7 +16,7 @@ public:
     produk(const std::string& nama, double hrga, int stk, const std::string& ktrg);
     void info_produk() const;
 
-    void set_semuanya(const std::string& nama, double hrga, int stk, const std::string& ktrg);
+    vector <std::string> tambahProduk() override;
     
     void ganti_nama_produk(const std::string& nama);
     std::string melihat_nama_produk() const;
