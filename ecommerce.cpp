@@ -4,14 +4,18 @@
 
 using namespace std;
 
-ECommerceSystem::ECommerceSystem() {
-    // Data dummy untuk testing
+ECommerceSystem::ECommerceSystem() { // Data dummy untuk test akun, sebelum buat ya kan biar testingnya enak
     daftarPembeli.push_back(new Pembeli("pembeli1", "pembeli1@email.com", "123"));
     daftarPembeli.push_back(new Pembeli("john", "john@email.com", "123"));
     daftarPenjual.push_back(new Penjual("penjual1", "penjual1@email.com", "123", "Toko Elektronik"));
     daftarPenjual.push_back(new Penjual("toko_abc", "toko@abc.com", "123", "Toko ABC"));
     
     cout << "Sistem E-Commerce diinisialisasi\n";
+
+    cout << "=== TUGAS PEMROGRAMAN DASAR ===\n";
+    cout << "= TEKNOLOGI INFORMASI 2025 =\n";
+    cout << "==============================\n";
+
 }
 
 ECommerceSystem::~ECommerceSystem() {
@@ -33,7 +37,9 @@ void ECommerceSystem::tampilkanMenuUtama() {
             case 1: daftarAkun(); break;
             case 2: loginAkun(); break;
             case 3: cout << "Terima kasih telah menggunakan layanan kami!\n"; 
-                cout << "Sampai Jumpa lagi!!!!! \n Dari Rama dan Qaqa"  << endl;
+                cout << "Sampai Jumpa lagi!!!!!" << endl;
+                cout << "==============================\n";
+                cout << "Salam dari Ramadhani Fadlurahmman dan Qaqa Qushayyi Qatrunnada\n";
                 break;
             default: cout << "Pilihan tidak valid!\n";
         }
@@ -108,7 +114,6 @@ void ECommerceSystem::loginAkun() {
 Pembeli* ECommerceSystem::findPembeli(const string& username, const string& password) {
     for (Pembeli* pembeli : daftarPembeli) {
         if (pembeli->cariUsername() == username) {
-            // Check password nanti di method login
             return pembeli;
         }
     }
@@ -118,7 +123,6 @@ Pembeli* ECommerceSystem::findPembeli(const string& username, const string& pass
 Penjual* ECommerceSystem::findPenjual(const string& username, const string& password) {
     for (Penjual* penjual : daftarPenjual) {
         if (penjual->cariUsername() == username) {
-            // Check password nanti di method login
             return penjual;
         }
     }

@@ -2,22 +2,22 @@
 #define PERSON_H
 
 #include <string>
-#include <iostream>
 #include <vector>
+
 using namespace std;
 
-namespace ktlg{
-    extern vector<string> katalogLokal;
-}
+// Deklarasi katalog global
+extern vector<vector<string>> katalogGlobal;
+
 class Person {
 protected:
     string username;
     string email;
     string password;
     bool loggedIn;
-    
+    vector<vector<string>>& katalogProduk;  // Reference ke katalog global
+
 public:
-    vector <vector<string>> katalogProduk;
     Person(const string& uname, const string& mail, const string& pwd);
     virtual ~Person() = default;
     
@@ -26,19 +26,19 @@ public:
     bool sudahLoggedIn() const;
     bool login(const string& inputPassword);
     void logout();
+    
     virtual void tampilkanInfo() const = 0;
     virtual void tampilkanMenu() = 0;
 };
 
 class Pembeli : public Person {
 private:
-    vector<string> keranjang;
+    vector<vector<string>> keranjang;
     vector<string> riwayatPesanan;
-    
+
 public:
     Pembeli(const string& uname, const string& mail, const string& pwd);
     
-    // Use case methods
     void cariProduk();
     void lihatDetailProduk();
     void tambahKeKeranjang();
@@ -55,15 +55,12 @@ public:
 class Penjual : public Person {
 private:
     string namaToko;
-    // vector<string> katalogProduk;
     vector<string> daftarPesanan;
-    
+
 public:
     Penjual(const string& uname, const string& mail, const string& pwd, const string& toko);
     
-    // Use case methods
-
-    virtual vector <std::string> tambahProduk();
+    void tambahProduk();
     void aturStokProduk();
     void lihatKatalog();
     void terimaPesanan();
