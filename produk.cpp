@@ -4,9 +4,10 @@
 #include <vector>
 
 using namespace std;
-namespace ktlg{
-    extern vector<string> katalogLokal;
-}
+
+// Define the single instance of katalogLokal (one definition across the program)
+std::vector<std::string> ktlg::katalogLokal;
+
 // produk class implementation
 produk::produk(const std::string& nama, double hrga, int stk, const std::string& ktrg)
     : Penjual(username, email, password, nama), namaProduk(nama), harga(hrga), stok(stk), kategory(ktrg) {

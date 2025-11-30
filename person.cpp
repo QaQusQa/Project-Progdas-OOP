@@ -1,12 +1,12 @@
 #include "person.h"
-#include "produk.h"
-#include "produk.cpp"
+// #include "produk.h"
 #include <iostream>
 #include <limits>
 #include <vector>
 
 using namespace std;
 
+std::vector<std::string> ktlg::katalogLokal;
 // Person class implementation
 Person::Person(const string& uname, const string& mail, const string& pwd)
     : username(uname), email(mail), password(pwd), loggedIn(false) {}
@@ -105,43 +105,26 @@ void Pembeli::cariProduk() {
     // cout << "3. Charger " << keyword << " - Rp 150.000\n";
 }
 
-// void Pembeli::lihatDetailProduk() {
-//     if (!sudahLoggedIn()) {
-//         cout << "Silakan login terlebih dahulu!\n";
-//         return;
-//     }
-    
-//     int pilihan;
-//     cout << "Pilih produk untuk dilihat detail:\n";
-//     cout << "1. Smartphone Samsung S23\n";
-//     cout << "2. Case HP Premium\n";
-//     cout << "3. Charger Fast Charging\n";
-//     cout << "Pilihan: ";
-//     cin >> pilihan;
-    
-//     switch(pilihan) {
-//         case 1:
-//             cout << "Detail Smartphone Samsung S23:\n";
-//             cout << "Harga: Rp 5.000.000\n";
-//             cout << "Stok: 10\n";
-//             cout << "Deskripsi: Smartphone flagship dengan kamera 108MP\n";
-//             break;
-//         case 2:
-//             cout << "Detail Case HP Premium:\n";
-//             cout << "Harga: Rp 100.000\n";
-//             cout << "Stok: 50\n";
-//             cout << "Deskripsi: Case anti gores dengan bahan premium\n";
-//             break;
-//         case 3:
-//             cout << "Detail Charger Fast Charging:\n";
-//             cout << "Harga: Rp 150.000\n";
-//             cout << "Stok: 30\n";
-//             cout << "Deskripsi: Charger 25W dengan fast charging technology\n";
-//             break;
-//         default:
-//             cout << "Pilihan tidak valid!\n";
-//     }
-// }
+void Pembeli::lihatDetailProduk() {
+    if (!sudahLoggedIn()) {
+        cout << "Silakan login terlebih dahulu!\n";
+        return;
+    }
+    if (katalogProduk.empty()) {
+        cout << "Katalog kosong.\n";
+        return;
+    }
+
+    cout << "-------------------------------";
+    for (int i = 0; i < katalogProduk.size() ; i++){
+        cout << 1 << ". " << katalogProduk[i][0] << endl;
+        cout << 2 << ". " << katalogProduk[i][1] << endl;
+        cout << 3 << ". " << katalogProduk[i][2] << endl;
+        cout << 4 << ". " << katalogProduk[i][3] << endl;
+        cout << "----------------------------------------";
+    }
+
+}
 
 void Pembeli::tambahKeKeranjang() {
     if (!sudahLoggedIn()) {
@@ -154,17 +137,21 @@ void Pembeli::tambahKeKeranjang() {
     cout << "Masukkan nama produk yang ingin ditambahkan: ";
     cin.ignore();
     getline(cin, produk);
+    if (katalogProduk.empty()) {
+        cout << "Katalog kosong, tidak bisa menambahkan ke keranjang!\n";
+        return;
+    }
+
     for (int i = 0; i < katalogProduk.size() ; i++){
         if (produk == katalogProduk[i][0]){
             keranjang.push_back(produk);
             cout << "Produk '" << produk << "' berhasil ditambahkan ke keranjang!\n";
-        }
-        else{
+        }else{
             cout<<"produk tidak terdapat pada toko"<< endl;
         }
     }
-    cout << "apakah ingin belanja lagi (jika tidak ketik 'n')? " << endl;
-    } while (produk != "n");
+    cout << "apakah ingin belanja lagi (jika tidak ketik 'no')? " << endl;
+    } while (produk != "no");
 }
 
 void Pembeli::lihatKeranjang() {
@@ -299,9 +286,6 @@ void Pembeli::tampilkanMenu() {
     } while (pilihan != 0 && sudahLoggedIn());
 }
 
-produk::produk(const std::string& nama, double hrga, int stk, const std::string& ktrg)
-    : Penjual(username, email, password, nama), namaProduk(nama), harga(hrga), stok(stk), kategory(ktrg) {}
-
 // Penjual class implementation
 Penjual::Penjual(const string& uname, const string& mail, const string& pwd, const string& toko)
     : Person(uname, mail, pwd), namaToko(toko) {}
@@ -309,12 +293,42 @@ Penjual::Penjual(const string& uname, const string& mail, const string& pwd, con
 vector <std::string> Penjual::tambahProduk() {
     if (!sudahLoggedIn()) {
         cout << "Silakan login terlebih dahulu!\n";
-        return;
+        return {};
     }
+    cout<<"Masukkan detail produk yang akan ditambahkan:\n";
+    cout<<"Nama Produk: ";
+    std::string nama;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    getline(cin, nama);
 
-    vector <string> katalog = ktlg::katalogLokal;
-    katalogProduk.push_back(katalog);
+    cout<<"Harga: ";
+    double hrga;
+    cin>>hrga;
 
+    cout<<"Stok: ";
+    int stk;
+    cin>>stk;
+
+    cout<<"Kategori (Elektronik/Kebutuhan Pokok/Fashion): ";
+    std::string ktrg;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    getline(cin, ktrg);
+
+    // namaProduk = nama;
+    // harga = hrga;
+    // stok = stk;
+    // kategory = ktrg;
+
+    ktlg::katalogLokal.push_back(nama);
+    ktlg::katalogLokal.push_back(to_string(hrga));
+    ktlg::katalogLokal.push_back(to_string(stk));
+    ktlg::katalogLokal.push_back(ktrg);
+
+    katalogProduk.push_back(ktlg::katalogLokal);
+    return ktlg::katalogLokal;
+    // vector <string> katalog = ktlg::katalogLokal;
+    // katalogProduk.push_back(katalog);
+    // return katalog;
 
     // string produk;
     // cout << "Masukkan nama produk: ";
@@ -365,8 +379,8 @@ void Penjual::lihatKatalog() {
         for (int i = 0; i < katalogProduk.size(); i++) {
             cout << i+1 << ". " << katalogProduk[i][0];
             cout << ", Kategori: "<< katalogProduk[i][3] << "\n";
-            cout << "Harga Barang: "<< ". " << katalogProduk[i][1] << "\n";
-            cout << "Stok yang tersedia: "<< ". " << katalogProduk[i][0] << "\n";
+            cout << "Harga Barang: Rp." << katalogProduk[i][1] << "\n";
+            cout << "Stok yang tersedia: "<< katalogProduk[i][2] << "\n";
         }
     }
 }

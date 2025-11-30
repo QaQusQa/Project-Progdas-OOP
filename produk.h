@@ -6,6 +6,9 @@
 #include <iostream>
 #include <vector>
 
+namespace ktlg{
+    extern std::vector<std::string> katalogLokal;
+}
 class produk : public Penjual{
 private:
     std::string namaProduk;
@@ -27,5 +30,8 @@ public:
     void menentukan_kategory(const std::string& ktrg);
     std::string melihat_kategory() const;
 };
+
+// akses helper untuk katalog lokal
+std::vector<std::string> getKatalogLokal();
 
 #endif // PRODUK_H

@@ -6,6 +6,9 @@
 #include <vector>
 using namespace std;
 
+namespace ktlg{
+    extern vector<string> katalogLokal;
+}
 class Person {
 protected:
     string username;
