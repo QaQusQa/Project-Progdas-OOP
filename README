@@ -1,3 +1,11 @@
+TUGAS PEMROGRAMAN DASAR
+PROJECT OOP
+2025
+
+Ramadani Fadhlurrahman_25/556288/TK/62743_TEKNOLOGI INFORMASI
+Qaqa Qushayyi Qatrunnada_25/561242/TK/63401_TEKNOLOGI INFORMASI
+
+
 // Cara kompilasi semua file langsung: 
 g++ -o ecommerce main.cpp ecommerce.cpp person.cppp
 
