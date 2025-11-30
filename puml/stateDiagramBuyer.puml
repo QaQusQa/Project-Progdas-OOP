@@ -1,0 +1,33 @@
+@startuml Pembeli_State_Diagram
+
+state Pembeli {
+    [*] --> LoggedOut : Mulai
+    
+    state LoggedOut {
+    [*] --> Login
+    Login --> LoggedIn : Sukses
+    Login --> [*] : Gagal
+    }
+    
+    state LoggedIn {
+        [*] --> TelusuriProduk
+        TelusuriProduk --> LihatDetail : Pembeli memilih produk
+        TelusuriProduk --> CariBerdasarKategori 
+        
+        LihatDetail --> TambahKeKeranjang : Produk ditambahkan ke keranjang
+        LihatDetail --> TelusuriProduk : Kembali ke menu produk
+        
+        TambahKeKeranjang --> TelusuriProduk : Lanjut belanja
+        TambahKeKeranjang --> LihatKeranjang : Lihat keranjang
+        
+        LihatKeranjang --> Checkout : Proses checkout
+        LihatKeranjang --> TelusuriProduk : Misal tambah produk lagi
+        
+        Checkout --> Pembayaran : Bayar pesanan
+        Pembayaran --> LacakPesanan : Lacak pesanan
+        LacakPesanan --> TerimaPesanan : Terima barang yang dipesan
+        TerimaPesanan --> [*] : Logout
+    }
+}
+
+@enduml

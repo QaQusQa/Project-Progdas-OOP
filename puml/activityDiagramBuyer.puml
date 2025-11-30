@@ -1,0 +1,40 @@
+@startuml Pembeli_Activity_Diagram
+
+start
+:Login sebagai Pembeli;
+repeat
+  :Tampilkan Menu Pembeli;
+  :Pilih menu;
+  
+  if (Cari Produk) then (Ya)
+    :Tampilkan kategori;
+    :Pilih kategori;
+    :Tampilkan produk;
+  elseif (Lihat Detail) then (Ya)
+    :Tampilkan semua produk;
+    :Pilih produk;
+    :Tampilkan detail;
+  elseif (Tambah Keranjang) then (Ya)
+    :Tampilkan produk;
+    :Pilih produk;
+    :Tambahkan ke keranjang;
+  elseif (Lihat Keranjang) then (Ya)
+    :Tampilkan isi keranjang;
+    :Hitung total;
+  elseif (Checkout) then (Ya)
+    :Proses checkout;
+    :Kurangi stok;
+    :Kosongkan keranjang;
+  elseif (Bayar) then (Ya)
+    :Pilih metode bayar;
+    :Proses pembayaran;
+  elseif (Status Pesanan) then (Ya)
+    :Tampilkan riwayat;
+  elseif (Terima Barang) then (Ya)
+    :Konfirmasi penerimaan;
+  endif
+  
+repeat while (Logout?) is (Tidak)
+stop
+
+@enduml

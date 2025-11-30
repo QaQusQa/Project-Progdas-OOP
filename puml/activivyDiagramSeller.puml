@@ -1,0 +1,34 @@
+@startuml Penjual_Activity_Diagram
+
+start
+:Login sebagai Penjual;
+repeat
+    :Tampilkan Menu Penjual;
+    :Pilih menu;
+    
+    if (Tambah Produk) then (Ya)
+        :Input data produk;
+        :Simpan ke katalog;
+    elseif (Atur Stok) then (Ya)
+        :Tampilkan produk;
+        :Pilih produk;
+        :Input stok baru;
+    elseif (Lihat Katalog) then (Ya)
+        :Tampilkan semua produk;
+    elseif (Terima Pesanan) then (Ya)
+        :Tambahkan pesanan baru;
+    elseif (Proses Pesanan) then (Ya)
+        :Update status pesanan;
+    elseif (Atur Pengiriman) then (Ya)
+        :Pilih metode kirim;
+        :Setup pengiriman;
+    elseif (Lihat Pesanan) then (Ya)
+        :Tampilkan daftar pesanan;
+    elseif (Konfirmasi Kirim) then (Ya)
+        :Konfirmasi pengiriman;
+    endif
+    
+repeat while (Logout?) is (Tidak)
+stop
+
+@enduml

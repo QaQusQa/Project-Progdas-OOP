@@ -1,0 +1,68 @@
+@startuml ECommerce_Class_Diagram
+
+class ECommerceSystem {
+    - daftarPembeli: vector<Pembeli*>
+    - daftarPenjual: vector<Penjual*>
+    + ECommerceSystem()
+    + ~ECommerceSystem()
+    + tampilkanMenuUtama()
+    + daftarAkun()
+    + loginAkun()
+    + findPembeli()
+    + findPenjual()
+}
+
+class Person {
+    # username: string
+    # email: string
+    # password: string
+    # loggedIn: bool
+    # katalogProduk: vector<vector<string>>&
+    + Person()
+    + cariUsername()
+    + cariEmail()
+    + sudahLoggedIn()
+    + login()
+    + logout()
+    + {abstract} tampilkanInfo()
+    + {abstract} tampilkanMenu()
+}
+
+class Pembeli {
+    - keranjang: vector<vector<string>>
+    - riwayatPesanan: vector<string>
+    + Pembeli()
+    + cariProduk()
+    + lihatDetailProduk()
+    + tambahKeKeranjang()
+    + lihatKeranjang()
+    + prosesCheckout()
+    + lakukanPembayaran()
+    + lihatStatusPesanan()
+    + terimaBarang()
+    + tampilkanInfo()
+    + tampilkanMenu()
+    }
+
+class Penjual {
+    - namaToko: string
+    - daftarPesanan: vector<string>
+    + Penjual()
+    + tambahProduk()
+    + aturStokProduk()
+    + lihatKatalog()
+    + terimaPesanan()
+    + prosesPesanan()
+    + aturPengiriman()
+    + lihatDaftarPesanan()
+    + konfirmasiPengiriman()
+    + tampilkanInfo()
+    + tampilkanMenu()
+}
+
+Person <|-- Pembeli
+Person <|-- Penjual
+ECommerceSystem o-- Pembeli
+ECommerceSystem o-- Penjual
+
+@enduml

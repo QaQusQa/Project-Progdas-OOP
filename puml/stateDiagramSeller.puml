@@ -1,0 +1,30 @@
+@startuml Penjual_State_Diagram
+
+state Penjual {
+    [*] --> LoggedOut : Mulai
+    
+    state LoggedOut {
+        [*] --> Login
+        Login --> LoggedIn : Berhasil
+        Login --> [*] : Gagal
+    }
+    
+    state LoggedIn {
+        [*] --> ManageProduk
+        ManageProduk --> TambahProduk : Tambah produk ke katalog
+        ManageProduk --> AturStokProduk : Atur stok produk
+        ManageProduk --> LihatKatalog : Lihat katalog yang sudah diperbarui
+        
+        LihatKatalog --> ManageProduk : Kembali ke menu
+        
+        state ManagePesanan {
+        [*] --> TerimaPesanan
+        TerimaPesanan --> ProcessOrder : Proses pesanan yang masuk
+        ProcessOrder --> AturPengiriman : Atur jasa pengiriman
+        AturPengiriman --> KonfirmasiPengiriman 
+        ManageProduk --> ManagePesanan : Kelola pesanan
+        ManagePesanan --> ManageProduk : Selesai
+        }
+    }
+}
+@enduml

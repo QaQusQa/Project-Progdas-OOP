@@ -1,0 +1,23 @@
+@startuml ECommerce_Collaboration_Diagram
+
+object "ECommerceSystem" as platform
+object "Pembeli" as yangBeli
+object "Penjual" as yangJual
+object "KatalogGlobal" as catalog
+
+platform --> yangBeli : Manage
+platform --> yangJual : Manage
+yangBeli --> catalog : Lihat/tambah ke keranjang
+yangJual --> catalog : Manage produk
+yangBeli --> yangJual : Taruh pesanan
+
+note right of catalog
+    Bersifat umum
+    Data produk:
+    - Nama Produk
+    - Harga  
+    - Stok
+    - Kategori
+end note
+
+@enduml

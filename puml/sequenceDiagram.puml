@@ -1,0 +1,32 @@
+@startuml ECommerce_Sequence_Diagram
+
+actor User
+participant "Main Program" as Main
+participant "ECommerceSystem" as ECS
+participant "Pembeli/Penjual" as UserClass
+
+User -> Main: Jalankan program
+Main -> ECS: Buat instance ECommerceSystem
+ECS -> ECS: Inisialisasi data dummy
+ECS -> User: Tampilkan menu utama
+
+loop Until Exit
+    User -> ECS: Pilih menu
+    alt Daftar Akun
+        ECS -> ECS: daftarAkun()
+        ECS -> User: Minta data registrasi
+        User -> ECS: Input data
+        ECS -> ECS: Buat objek Pembeli/Penjual
+    else Login
+        ECS -> ECS: loginAkun()
+        ECS -> User: Minta username & password
+        User -> ECS: Input credentials
+        ECS -> ECS: findPembeli() / findPenjual()
+        ECS -> UserClass: login()
+        UserClass -> User: Tampilkan menu user
+    else Keluar
+        ECS -> User: Tampilkan pesan keluar
+    end
+end
+
+@enduml

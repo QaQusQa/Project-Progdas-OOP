@@ -1,0 +1,40 @@
+@startuml ECommerce_Data_Flow
+
+database "Katalog Produk" as katalog {
+    [Product Data]
+    [Stock Info]
+}
+
+actor "Pembeli" as pembeli
+actor "Penjual" as penjual
+
+package "E-Commerce System" {
+    [Pencarian Produk] as cari
+    [Manajemen Keranjang] as keranjang
+    [Proses Checkout] as checkout
+    [Manajemen Produk] as manajemenProduk
+    [Manajemen Pesanan] as manajemenPesanan
+}
+
+pembeli --> cari : Req. cari
+cari --> katalog : Query produk
+katalog --> cari : Res. hasil pencarian
+cari --> pembeli : Tampilkan produk
+
+pembeli --> keranjang : Tambah ke keranjang
+keranjang --> katalog : Cek stok
+katalog --> keranjang : Status stok
+keranjang --> pembeli : keranjang diperbarui
+
+pembeli --> checkout : Inisiasi checkout
+checkout --> katalog : Pembaruan stok
+checkout --> manajemenPesanan : Buat pesanan
+
+penjual --> manajemenProduk : Manage produk
+manajemenProduk --> katalog : Tambah/perbarui produk
+katalog --> manajemenProduk : Konfirmasi perubahan
+
+manajemenPesanan --> penjual : Notifikasi pesanan masuk
+penjual --> manajemenPesanan : Perbarui status pesanan
+
+@enduml
