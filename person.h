@@ -7,7 +7,7 @@
 using namespace std;
 
 namespace ktlg{
-    extern vector<string> katalogLokal;
+    extern std::vector<std::vector<std::string>> katalogLokal;
 }
 class Person {
 protected:
@@ -17,7 +17,8 @@ protected:
     bool loggedIn;
     
 public:
-    vector <vector<string>> katalogProduk;
+    // referensi ke katalog global bersama (setiap akun melihat katalog yang sama)
+    std::vector<std::vector<std::string>>& katalogProduk;
     Person(const string& uname, const string& mail, const string& pwd);
     virtual ~Person() = default;
     

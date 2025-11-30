@@ -6,10 +6,18 @@
 
 using namespace std;
 
-std::vector<std::string> ktlg::katalogLokal;
+// shared katalog: setiap elemen adalah vector<string> yang mewakili satu produk
+std::vector<std::vector<std::string>> ktlg::katalogLokal;
 // Person class implementation
 Person::Person(const string& uname, const string& mail, const string& pwd)
-    : username(uname), email(mail), password(pwd), loggedIn(false) {}
+    : username(uname), email(mail), password(pwd), loggedIn(false), katalogProduk(ktlg::katalogLokal) {
+        // Isi default hanya sekali (jika katalog kosong)
+        if (ktlg::katalogLokal.empty()) {
+            ktlg::katalogLokal.push_back({"Smartphone XYZ", "5000000", "10", "Elektronik"});
+            ktlg::katalogLokal.push_back({"Beras Premium", "150000", "50", "Kebutuhan Pokok"});
+            ktlg::katalogLokal.push_back({"Jaket Kulit", "750000", "20", "Fashion"});
+        }
+    }
 
 string Person::cariUsername() const {
     return username;
@@ -73,7 +81,7 @@ void Pembeli::cariProduk() {
         cout << "Pilihan tidak valid!\n";
     }
 
-    for (int i = 0; i < Person::katalogProduk.size() ; i++){
+    for (int i = 0; i < katalogProduk.size() ; i++){
         if (kategori == 1 and katalogProduk[i][3] == "Eletktronik"){
             cout << 1 << ". " << katalogProduk[i][0] << endl;
             cout << 2 << ". " << katalogProduk[i][1] << endl;
@@ -115,13 +123,13 @@ void Pembeli::lihatDetailProduk() {
         return;
     }
 
-    cout << "-------------------------------";
+    cout << "-------------------------------" << endl;
     for (int i = 0; i < katalogProduk.size() ; i++){
-        cout << 1 << ". " << katalogProduk[i][0] << endl;
-        cout << 2 << ". " << katalogProduk[i][1] << endl;
-        cout << 3 << ". " << katalogProduk[i][2] << endl;
-        cout << 4 << ". " << katalogProduk[i][3] << endl;
-        cout << "----------------------------------------";
+        cout << i+1 << ". " << katalogProduk[i][0] << endl;
+        cout << "   Harga: Rp " << katalogProduk[i][1] << endl;
+        cout << "   Stok: " << katalogProduk[i][2] << endl;
+        cout << "   Kategori: " << katalogProduk[i][3] << endl;
+        cout << "----------------------------------------" << endl;
     }
 
 }
@@ -189,8 +197,11 @@ void Pembeli::prosesCheckout() {
     for (int i = 0; i < keranjang.size() ; i++){
         for (int j = 0 ; j < katalogProduk.size() ; j++){
             if (keranjang[i] == katalogProduk[j][0]){
-                int katalogProduk[j][1];
-                harga_bayar += katalogProduk[j][1];
+                try {
+                    harga_bayar += stoi(katalogProduk[j][1]);
+                } catch(...) {
+                    // jika tidak bisa konversi, lewati
+                }
             }
         }
     }
@@ -319,13 +330,10 @@ vector <std::string> Penjual::tambahProduk() {
     // stok = stk;
     // kategory = ktrg;
 
-    ktlg::katalogLokal.push_back(nama);
-    ktlg::katalogLokal.push_back(to_string(hrga));
-    ktlg::katalogLokal.push_back(to_string(stk));
-    ktlg::katalogLokal.push_back(ktrg);
-
-    katalogProduk.push_back(ktlg::katalogLokal);
-    return ktlg::katalogLokal;
+    std::vector<std::string> produk = {nama, to_string(hrga), to_string(stk), ktrg};
+    ktlg::katalogLokal.push_back(produk);
+    // katalogProduk adalah referensi ke ktlg::katalogLokal, jadi sudah ter-update
+    return produk;
     // vector <string> katalog = ktlg::katalogLokal;
     // katalogProduk.push_back(katalog);
     // return katalog;
@@ -361,7 +369,7 @@ void Penjual::aturStokProduk() {
     cin >> stok;
     
     if (pilihan > 0 && pilihan <= katalogProduk.size()) {
-        katalogProduk[pilihan-1][2] = stok;
+        katalogProduk[pilihan-1][2] = to_string(stok);
         cout << "Stok " << katalogProduk[pilihan-1][0] << " diatur menjadi " << stok << "\n";
     }
 }
@@ -476,7 +484,7 @@ void Penjual::tampilkanMenu() {
         cout << "0. Logout\n";
         cout << "Pilihan: ";
         cin >> pilihan;
-        
+
         switch(pilihan) {
             case 1: tambahProduk(); break;
             case 2: aturStokProduk(); break;
