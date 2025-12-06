@@ -1,5 +1,5 @@
-#ifndef PERSON_H
-#define PERSON_H
+#ifndef PENGGUNA_H
+#define PENGGUNA_H
 
 #include <string>
 #include <vector>
@@ -9,7 +9,7 @@ using namespace std;
 // Deklarasi katalog global
 extern vector<vector<string>> katalogGlobal;
 
-class Person {
+class Pengguna {
 protected:
     string username;
     string email;
@@ -18,8 +18,8 @@ protected:
     vector<vector<string>>& katalogProduk;  // Reference ke katalog global
 
 public:
-    Person(const string& uname, const string& mail, const string& pwd);
-    virtual ~Person() = default;
+    Pengguna(const string& uname, const string& mail, const string& pwd);
+    virtual ~Pengguna() = default;
     
     string cariUsername() const;
     string cariEmail() const;
@@ -31,7 +31,7 @@ public:
     virtual void tampilkanMenu() = 0;
 };
 
-class Pembeli : public Person {
+class Pembeli : public Pengguna {
 private:
     vector<vector<string>> keranjang;
     vector<string> riwayatPesanan;
@@ -52,7 +52,7 @@ public:
     void tampilkanMenu() override;
 };
 
-class Penjual : public Person {
+class Penjual : public Pengguna {
 private:
     string namaToko;
     vector<string> daftarPesanan;

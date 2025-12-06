@@ -1,19 +1,19 @@
 CXX = g++
 CXXFLAGS = -Wall -std=c++11
-TARGET = ecommerce
-OBJS = main.o ecommerce.o person.o
+TARGET = tokoOnline
+OBJS = main.o tokoOnline.o pengguna.o
 
 $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
 
-main.o: main.cpp ecommerce.h
+main.o: main.cpp tokoOnline.h
 	$(CXX) $(CXXFLAGS) -c main.cpp
 
-ecommerce.o: ecommerce.cpp ecommerce.h person.h
-	$(CXX) $(CXXFLAGS) -c ecommerce.cpp
+tokoOnline.o: tokoOnline.cpp tokoOnline.h pengguna.h
+	$(CXX) $(CXXFLAGS) -c tokoOnline.cpp
 
-person.o: person.cpp person.h
-	$(CXX) $(CXXFLAGS) -c person.cpp
+pengguna.o: pengguna.cpp pengguna.h
+	$(CXX) $(CXXFLAGS) -c pengguna.cpp
 
 clean:
 	rm -f $(OBJS) $(TARGET)

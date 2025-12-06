@@ -1,20 +1,20 @@
-#ifndef ECOMMERCE_H
-#define ECOMMERCE_H
+#ifndef TOKOONLINE_H
+#define TOKOONLINE_H
 
-#include "person.h"
+#include "pengguna.h"
 #include <vector>
 #include <iostream>
 
 using namespace std;
 
-class ECommerceSystem {
+class SistemTokoOnline {
 private:
     vector<Pembeli*> daftarPembeli;
     vector<Penjual*> daftarPenjual;
     
 public:
-    ECommerceSystem();
-    ~ECommerceSystem();
+    SistemTokoOnline();
+    ~SistemTokoOnline();
     
     void tampilkanMenuUtama();
     void daftarAkun();

@@ -7,16 +7,16 @@ Qaqa Qushayyi Qatrunnada_25/561242/TK/63401_TEKNOLOGI INFORMASI
 
 
 // Cara kompilasi semua file langsung: 
-g++ -o ecommerce main.cpp ecommerce.cpp person.cppp
+g++ -o tokoOnline main.cpp tokoOnline.cpp pengguna.cpp
 
 //Cara kompilasi file satu-satu: 
 g++ -c main.cpp -o main.o
-g++ -c ecommerce.cpp -o ecommerce.o
-g++ -c person.cpp -o person.o
+g++ -c tokoOnline.cpp -o tokoOnline.o
+g++ -c pengguna.cpp -o pengguna.o
 
 //Cara menjalankan program:
-./ecommerce
+./tokoOnline
 
 
 Untuk kompilasi dan link dalam satu command line :
-g++ -c main.cpp && g++ -c ecommerce.cpp && g++ -c person.cpp && g++ -o ecommerce main.o ecommerce.o person.o && ./ecommerce
+g++ -c main.cpp && g++ -c tokoOnline.cpp && g++ -c pengguna.cpp && g++ -o tokoOnline main.o tokoOnline.o pengguna.o && ./tokoOnline

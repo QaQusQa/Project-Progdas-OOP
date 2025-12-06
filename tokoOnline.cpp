@@ -1,10 +1,10 @@
-#include "ecommerce.h"
+#include "tokoOnline.h"
 #include <iostream>
 #include <limits>
 
 using namespace std;
 
-ECommerceSystem::ECommerceSystem() { // Data dummy untuk test akun, sebelum buat ya kan biar testingnya enak
+SistemTokoOnline::SistemTokoOnline() { // Data dummy untuk test akun, sebelum buat ya kan biar testingnya enak
     daftarPembeli.push_back(new Pembeli("pembeli1", "pembeli1@email.com", "123"));
     daftarPembeli.push_back(new Pembeli("john", "john@email.com", "123"));
     daftarPenjual.push_back(new Penjual("penjual1", "penjual1@email.com", "123", "Toko Elektronik"));
@@ -18,12 +18,12 @@ ECommerceSystem::ECommerceSystem() { // Data dummy untuk test akun, sebelum buat
 
 }
 
-ECommerceSystem::~ECommerceSystem() {
+SistemTokoOnline::~SistemTokoOnline() {
     for (auto pembeli : daftarPembeli) delete pembeli;
     for (auto penjual : daftarPenjual) delete penjual;
 }
 
-void ECommerceSystem::tampilkanMenuUtama() {
+void SistemTokoOnline::tampilkanMenuUtama() {
     int pilihan;
     do {
         cout << "\n=== SISTEM E-COMMERCE ===\n";
@@ -46,7 +46,7 @@ void ECommerceSystem::tampilkanMenuUtama() {
     } while (pilihan != 3);
 }
 
-void ECommerceSystem::daftarAkun() {
+void SistemTokoOnline::daftarAkun() {
     int tipeAkun;
     cout << "\n=== DAFTAR AKUN BARU ===\n";
     cout << "1. Daftar sebagai Pembeli\n";
@@ -76,7 +76,7 @@ void ECommerceSystem::daftarAkun() {
     } 
 }
 
-void ECommerceSystem::loginAkun() {
+void SistemTokoOnline::loginAkun() {
     int tipeAkun;
     cout << "\n=== LOGIN ===\n";
     cout << "1. Login sebagai Pembeli\n";
@@ -111,7 +111,7 @@ void ECommerceSystem::loginAkun() {
     }
 }
 
-Pembeli* ECommerceSystem::findPembeli(const string& username, const string& password) {
+Pembeli* SistemTokoOnline::findPembeli(const string& username, const string& password) {
     for (Pembeli* pembeli : daftarPembeli) {
         if (pembeli->cariUsername() == username) {
             return pembeli;
@@ -120,7 +120,7 @@ Pembeli* ECommerceSystem::findPembeli(const string& username, const string& pass
     return nullptr;
 }
 
-Penjual* ECommerceSystem::findPenjual(const string& username, const string& password) {
+Penjual* SistemTokoOnline::findPenjual(const string& username, const string& password) {
     for (Penjual* penjual : daftarPenjual) {
         if (penjual->cariUsername() == username) {
             return penjual;

@@ -1,10 +1,10 @@
-#include "ecommerce.h"
+#include "tokoOnline.h"
 #include <iostream>
 
 using namespace std;
 
 int main() {
-    ECommerceSystem system;
-    system.tampilkanMenuUtama();
+    SistemTokoOnline sistem;
+    sistem.tampilkanMenuUtama();
     return 0;
 }

@@ -1,4 +1,4 @@
-#include "person.h"
+#include "pengguna.h"
 #include <iostream>
 #include <limits>
 #include <iomanip>
@@ -34,7 +34,7 @@ void tampilkanKatalog() {
 }
 
 // === CERITANYA ORANG ===
-Person::Person(const string& uname, const string& mail, const string& pwd)
+Pengguna::Pengguna(const string& uname, const string& mail, const string& pwd)
     : username(uname), email(mail), password(pwd), loggedIn(false), 
       katalogProduk(katalogGlobal) { 
         
@@ -42,22 +42,22 @@ Person::Person(const string& uname, const string& mail, const string& pwd)
     initializeKatalog();
 }
 
-string Person::cariUsername() const {
+string Pengguna::cariUsername() const {
     return username;
 }
 
-string Person::cariEmail() const {
+string Pengguna::cariEmail() const {
     return email;
 }
 
-bool Person::sudahLoggedIn() const {
+bool Pengguna::sudahLoggedIn() const {
     return loggedIn;
 }
 
-bool Person::login(const string& inputPassword) {
+bool Pengguna::login(const string& inputPassword) {
     if (inputPassword == password) {
         loggedIn = true;
-        cout << "Login berhasil! Selamat datang di TUGAS" << username << "!\n";
+        cout << "Login berhasil! Selamat datang di TUGAS PEMROGRAMAN DASAR, " << username << "!\n";
         return true;
     } else {
         cout << "Password salah! Coba lagi ya!!!!!\n";
@@ -65,14 +65,14 @@ bool Person::login(const string& inputPassword) {
     }
 }
 
-void Person::logout() {
+void Pengguna::logout() {
     loggedIn = false;
-    cout << "Logout berhasil. Sampai jumpa di run yang akan datang" << username << "!\n";
+    cout << "Logout berhasil. Sampai jumpa di run yang akan datang " << username << "!\n";
 }
 
 // === INI YANG BELI ===
 Pembeli::Pembeli(const string& uname, const string& mail, const string& pwd)
-    : Person(uname, mail, pwd) {}
+    : Pengguna(uname, mail, pwd) {}
 
 void Pembeli::cariProduk() {
     if (!sudahLoggedIn()) {
@@ -338,7 +338,7 @@ void Pembeli::tampilkanMenu() {
 
 // === YANG JUALAN ===
 Penjual::Penjual(const string& uname, const string& mail, const string& pwd, const string& toko)
-    : Person(uname, mail, pwd), namaToko(toko) {}
+    : Pengguna(uname, mail, pwd), namaToko(toko) {}
 
 void Penjual::tambahProduk() {
     if (!sudahLoggedIn()) {
